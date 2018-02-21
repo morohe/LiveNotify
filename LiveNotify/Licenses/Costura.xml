@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<license xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <title>Costura.Fody 1.6.2</title>
+  <author>2012 Simon Cropp and contributors</author>
+  <license_file>Costura.txt</license_file>
+</license>

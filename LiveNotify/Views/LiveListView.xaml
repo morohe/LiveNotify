@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="LiveNotify.Views.LiveListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:localvalueconverter="clr-namespace:LiveNotify.ValueConverter"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <localvalueconverter:LiveItemToGridColumnConverter x:Key="LiveItemToGridColumnConverter" />
+        <localvalueconverter:FavoriteMatchedToStringConverter x:Key="FavoriteMatchedToStringConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition MinHeight="100"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label MinWidth="80" Content="現在の配信数:"/>
+                    <Label Content="{Binding Lives.Count}"/>
+                </StackPanel>
+            </GroupBox.Header>
+            <ListView x:Name="LiveList"
+                      ItemsSource="{Binding Lives}"
+                      View="{Binding LiveColumns, Converter={StaticResource LiveItemToGridColumnConverter}}"
+                      Margin="3">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding DoubleClickLiveItemCommand}"
+                                           CommandParameter="{Binding SelectedItem, ElementName=LiveList}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+        </GroupBox>
+        <GridSplitter Grid.Row="1" Height="4" HorizontalAlignment="Stretch" Background="Transparent"/>
+        <GroupBox Grid.Row="2" Header="お気に入り">
+            <ListView x:Name="FavoriteList" ItemsSource="{Binding Favorites}" Margin="3">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="削除" Command="{Binding RemoveFavoriteCommand}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="サイト" DisplayMemberBinding="{Binding AlertSource}"/>
+                        <GridViewColumn Header="ラベル" DisplayMemberBinding="{Binding Label}"/>
+                        <GridViewColumn Header="検索語" DisplayMemberBinding="{Binding Query}"/>
+                        <GridViewColumn Header="検索対象" DisplayMemberBinding="{Binding QueryTarget}"/>
+                        <GridViewColumn Header="更新日時" DisplayMemberBinding="{Binding LatestFoundDate.Value, StringFormat={}{0:yyyy/MM/dd HH:mm:ss}}"/>
+                        <GridViewColumn Header="配信数" DisplayMemberBinding="{Binding MatchedLives.Count}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <Grid Grid.Row="3" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Style="{StaticResource LabelStyle}" Content="ラベル（省略可）:"/>
+            <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding FavoriteLabel.Value}"/>
+            <Label Grid.Column="2" Style="{StaticResource LabelStyle}" Content="検索:"/>
+            <TextBox Grid.Column="3" Style="{StaticResource TextBoxStyle}" Text="{Binding FavoriteQuery.Value, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Column="4" Style="{StaticResource ComboBoxStyle}"
+                      ItemsSource="{Binding FavoriteQueryTargets}"
+                      DisplayMemberPath="Key.Label"
+                      SelectedItem="{Binding SelectedFavoriteQueryTarget.Value}"/>
+            <Button Grid.Column="5" Style="{StaticResource ButtonStyle}" Command="{Binding SearchCommand}" Content="検索"/>
+            <Button Grid.Column="6" Style="{StaticResource ButtonStyle}" Command="{Binding AddFavoriteCommand}" Content="お気に入りに追加"/>
+            <Button Grid.Column="7" Style="{StaticResource ButtonStyle}" Command="{Binding ClearSearchBoxCommand}" Content="クリア"/>
+        </Grid>
+    </Grid>
+</UserControl>

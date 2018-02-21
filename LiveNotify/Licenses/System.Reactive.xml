@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<license xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <title>System.Reactive 3.1.1</title>
+  <author>.NET Foundation and Contributors</author>
+  <license_file>System.Reactive.txt</license_file>
+</license>

@@ -1,0 +1,16 @@
+﻿{
+  "streams": [
+    {
+      "id": "1",
+      "title": "test1",
+      "user_name": "test_user1",
+      "url": "http://www.example.com/test1"
+    },
+    {
+      "id": "2",
+      "title": "test2",
+      "user_name": "test_user2",
+      "url": "http://www.example.com/test2"
+    }
+  ]
+}
