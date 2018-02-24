@@ -1,8 +1,9 @@
 ﻿using NLog;
 using NLog.Config;
 using NLog.Targets;
-using System.Windows;
 using System;
+using System.Windows;
+using WPFLocalizeExtension.Engine;
 
 namespace LiveNotify
 {
@@ -28,6 +29,10 @@ namespace LiveNotify
             LogManager.Configuration = config;
 
             LogManager.GetCurrentClassLogger().Info("Start application");
+
+            // Initialize Localize
+            LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
+            LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("ja-JP");
 
             base.OnStartup(e);
 

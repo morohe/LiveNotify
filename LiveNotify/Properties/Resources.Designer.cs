@@ -89,5 +89,14 @@ namespace LiveNotify.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Exit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string STV_MENU_Exit {
+            get {
+                return ResourceManager.GetString("STV_MENU_Exit", resourceCulture);
+            }
+        }
     }
 }
