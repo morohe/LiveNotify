@@ -120,4 +120,7 @@
   <data name="STV_MENU_Exit" xml:space="preserve">
     <value>終了</value>
   </data>
+  <data name="STV_MENU_Hide" xml:space="preserve">
+    <value>ウィンドウを閉じる</value>
+  </data>
 </root>

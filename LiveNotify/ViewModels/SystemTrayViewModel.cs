@@ -75,10 +75,19 @@ namespace LiveNotify.ViewModels
                 {
                     _logger.Info("Show " + nameof(Views.MainWindow));
                     App.Current.MainWindow.Show();
+                    App.Current.MainWindow.Activate();
                 }
                 else if (true == App.Current.MainWindow?.IsVisible)
                 {
-                    _logger.Info("Hide " + nameof(Views.MainWindow));
+                    App.Current.MainWindow.Activate();
+                }
+            });
+
+            HideDialogCommand = new ReactiveCommand();
+            HideDialogCommand.Subscribe(() =>
+            {
+                if (true == App.Current.MainWindow?.IsVisible)
+                {
                     App.Current.MainWindow.Hide();
                 }
             });
@@ -128,6 +137,8 @@ namespace LiveNotify.ViewModels
         }
 
         public ReactiveCommand ShowDialogCommand { get; }
+
+        public ReactiveCommand HideDialogCommand { get; }
 
         public ReactiveCommand ExitCommand { get; }
 

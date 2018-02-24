@@ -130,4 +130,7 @@
   <data name="STV_MENU_Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="STV_MENU_Hide" xml:space="preserve">
+    <value>Hide Window</value>
+  </data>
 </root>

@@ -98,5 +98,14 @@ namespace LiveNotify.Properties {
                 return ResourceManager.GetString("STV_MENU_Exit", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Hide Window に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string STV_MENU_Hide {
+            get {
+                return ResourceManager.GetString("STV_MENU_Hide", resourceCulture);
+            }
+        }
     }
 }

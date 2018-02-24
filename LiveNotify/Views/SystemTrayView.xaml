@@ -15,6 +15,8 @@
         mc:Ignorable="d">
     <tb:TaskbarIcon.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="{lex:Loc STV_MENU_Hide}" Command="{Binding HideDialogCommand}"/>
+            <Separator/>
             <MenuItem Header="{lex:Loc STV_MENU_Exit}" Command="{Binding ExitCommand}"/>
         </ContextMenu>
     </tb:TaskbarIcon.ContextMenu>
